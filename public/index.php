@@ -14,6 +14,13 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 require __DIR__.'/../vendor/autoload.php';
 
 // Bootstrap Laravel and handle the request...
+
+if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Electron') !== false) {
+    $baseUrl = 'file://' . __DIR__;
+} else {
+    $baseUrl = env('APP_URL');
+}
+
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
